@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<style type="text/css">
+
+	#jeden{
+		border: 1px solid black;
+		width: 200px;
+		height:200px;
+	}
+	.prostokaty{
+		width: 100px;
+		height: 100px;
+		border: 3px solid green;
+	}
+
+</style>
+<div id="jeden" style="background-color: red"></div>
+<div class="prostokaty">zerowy</div>
+<div class="prostokaty">
+	<div>pierwszy</div>
+</div>
+<div class="prostokaty">drugi</div>
+
+<script type="text/javascript">
+	// odwoływanie się elementów DOM przez ich własności:
+	var div = document.getElementById("jeden");
+	console.log(div);
+
+	var div1 = document.getElementsByClassName("prostokaty")[1];
+	console.log(div1);
+
+	var div2 = document.getElementsByTagName("div")[3];
+	console.log(div2);
+
+	//każdy element ma listę atrybutów, do których można się odwołać np. style – a tu działają parametry takie same, jak w CSS, tylko pisane bez myślników, camelCase'm
+
+	div.style.backgroundColor = "yellow";
+	div.style.boxShadow = "10px 10px 5px red";
+
+
+	//można w js tworzyć elementy DOM:
+	var div3 = document.createElement("div");
+	console.log(div3);
+	// i dodawać je do innych, np do body
+	document.body.appendChild(div3);
+	div3.style.width = "100px";
+
+	//można też dodawać klasy elementom HTMML
+	div3.classList.add("ostatni");
+	console.log(div1.classList);
+	div1.classList.add("dodana");
+	console.log(div1.classList);
+	//lub je usuwać
+	div1.classList.remove("prostokaty");
+	console.log(div1.classList);
+
+
+
+	//eventy! <- więcej opcji zawsze w dokumentacji
+	document.addEventListener("click", changeColor);
+	//funcja zmieniająca kolor diva
+	function changeColor(){
+		console.log("czy dzialasz?");
+		//generujemy randomowy kolor
+		// math.random zwraca wartość od 0 do 1 (ułamkową), mnożmy z 255 by mieć wartość koloru rgb
+		// math.floor zaookrągla nam tą wartość
+		// potem łączymy wszystko w jeden string plusami
+		var value = "rgb("
+		+Math.floor(Math.random()*255)
+		+","
+		+Math.floor(Math.random()*255)
+		+","
+		+Math.floor(Math.random()*255)
+		+")"
+		//funkcja na kliknięcie będzie się wykonywała
+		div.style.backgroundColor = value;
+	}
+
+
+	div.addEventListener("mouseover", changeColor);
+
+	//tworzymy cały element włącznie z tekstem w środku w js
+	var menu = document.createElement("div");
+	var text = document.createElement("p");
+	text.innerHTML = "JESTEM MENU";
+	menu.appendChild(text);
+	menu.id = "menu";
+	console.log(menu);
+
+	//na kliknięcie będzie się wykonywała zmiana stanu menu - doda się do DOM albo usunie z niego
+	function zmianaMenu(){
+		if(!document.getElementById("menu"))
+			div.appendChild(menu);
+		else
+			div.removeChild(menu);
+	}
+	
+	div.addEventListener("click", zmianaMenu);
+	
+
+
+
+
+
+	//powtórzenie
+	// var Samochod = { marka : "Volvo", 
+	// 				kolor : "czerwony", 
+	// 				wiek : "4", 
+	// 				czyJedzie(){
+	// 					return true;
+	// 					} 
+	// 				};
+	// var samochody = [
+	// 	{marka : "Volvo", kolor : "czerwony", wiek : "4", id: 1, czyJedzie(){
+	// 		if(this.wiek<3)return true; 
+	// 		else return false;
+	// 	}},
+	// 	{marka : "Merc", kolor : "zielony", wiek : "1",czyJedzie(){
+	// 		if(this.wiek<3)return true; 
+	// 		else return false;
+	// 	} 
+	// 	},
+	// 	{marka : "Citroen", kolor : "zielony", wiek : "12",
+	// 	},
+	// 	{marka : "Fiat", kolor : "zielony", wiek : "2",
+	// 	}
+	// ] 
+
+	// console.log(Samochod.marka + " odwolanie do obiektu");
+
+
+	// console.log(samochody[0].marka + " odwolanie do tablicy");
+	// console.log(samochody[0].marka + " jest " 
+	// 	+ samochody[0].kolor
+	// 	+", a "
+	// 	+ samochody[1].marka 
+	// 	+ " jest "
+	// 	+ samochody[1].kolor);
+
+	// console.log(samochody[0].id + "   " + samochody[1].id);
+
+	// console.log(samochody[0].czyJedzie()+"   "+samochody[1].czyJedzie());
+
+	// for(var i = 0; i < samochody.length; i++){
+	// 	if(samochody[i].wiek < 3)
+	// 		console.log(samochody[i].marka + " jest ok.");
+	// 	else
+	// 		console.log(samochody[i].marka + " jest za stary.");
+	// }
+
+
+
+</script>
+</body>
+</html>
